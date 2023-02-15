@@ -55,7 +55,9 @@ int main() {
                 cout << "Invalid input. Please try again." << endl;
                 break;
         }
+        cout << "\n";
         pFuncs::print("List state: ", someList);
+        cout << "\n";
     }
 
     return 0;
