@@ -3,8 +3,6 @@
 #include "DoublylinkedList.cpp"
 
 
-// TODO: Resolve the need to include the .cpp file
-// Likely due to building library at the same time as the main executable
 
 
 using std::cout;
