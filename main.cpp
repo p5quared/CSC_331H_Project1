@@ -2,20 +2,10 @@
 #include "DoublyLinkedList.h"
 #include "DoublylinkedList.cpp"
 
+
 // TODO: Resolve the need to include the .cpp file
 // Likely due to building library at the same time as the main executable
 
-// Menu features:
-//   Implement using FTXGUI
-// Commands:
-//   t: visualize with table
-//   a: append data
-//   p: prepend data
-//     ex: p 5 (prepend 5)
-//       or p 5 6 7 (prepend 5, 6, 7)
-//       or p (prepend random Node<T>)
-
-// extra: use IMGUI? maybe not for this project
 
 using std::cout;
 using std::endl;
@@ -34,39 +24,41 @@ int main() {
     DoublyLinkedList<int> someList;
 
     cout << "Welcome to the Doubly Linked List Program!" << endl;
-    cout << "You are starting with an empty linked-list." << endl;
-    char input;
-    do {
+    cout << "This program will allow you to create a Doubly Linked List and manipulate it." << endl;
+    cout << "You can append, prepend, and delete data from the list." << endl;
+    // Continuously take user input and execute commands.
+    while (true) {
         pFuncs::displayMenu();
+        char input;
         std::cin >> input;
         switch (input) {
-            int data;
             case 'a':
                 cout << "Enter data to append: ";
+                int data;
                 std::cin >> data;
                 someList.append(data);
                 break;
             case 'p':
                 cout << "Enter data to prepend: ";
-                std::cin >> data;
-                someList.prepend(data);
+                int data2;
+                std::cin >> data2;
+                someList.prepend(data2);
                 break;
             case 'd':
                 cout << "Enter data to delete: ";
-                std::cin >> data;
-                someList.remove(data);
-                break;
-            case 'o':
-                pFuncs::print("List:", someList);
+                int data3;
+                std::cin >> data3;
+                someList.remove(data3);
                 break;
             case 'q':
-                break;
+                cout << "Quitting..." << endl;
+                return 0;
             default:
-                cout << "Invalid input" << endl;
+                cout << "Invalid input. Please try again." << endl;
                 break;
         }
-    } while (input != 'q');
-    cout << "Goodbye!" << endl;
+        pFuncs::print("List state: ", someList);
+    }
 
     return 0;
 }
@@ -91,6 +83,5 @@ void pFuncs::displayMenu(){
     cout << "a. Append data\n";
     cout << "p. Prepend data\n";
     cout << "d. Delete data\n";
-    cout << "o. Print list\n";
     cout << "q. Quit\n>";
 }
