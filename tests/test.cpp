@@ -4,8 +4,7 @@
 
 #include <catch2/catch_test_macros.hpp>
 #include "DoublyLinkedList.h"
-#include "DoublyLinkedList.cpp"
-#include "include/Node.h"
+#include "Node.h"
 
 
 

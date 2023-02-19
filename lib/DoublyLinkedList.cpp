@@ -1,7 +1,6 @@
 //
 // Created by Peter Vaiciulis on 2/4/23.
 //
-#pragma once
 
 #include <stdexcept>
 #include <string>
