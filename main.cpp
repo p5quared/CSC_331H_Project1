@@ -1,6 +1,5 @@
 #include <iostream>
 #include "DoublyLinkedList.h"
-#include "DoublylinkedList.cpp"
 
 
 
@@ -19,11 +18,12 @@ namespace pFuncs
 
 
 int main() {
-    DoublyLinkedList<int> someList;
+    DoublyLinkedList<int> someList = DoublyLinkedList<int>();
 
     cout << "Welcome to the Doubly Linked List Program!" << endl;
     cout << "This program will allow you to create a Doubly Linked List and manipulate it." << endl;
     cout << "You can append, prepend, and delete data from the list." << endl;
+
     // Continuously take user input and execute commands.
     while (true) {
         pFuncs::displayMenu();
@@ -59,6 +59,7 @@ int main() {
         pFuncs::print("List state: ", someList);
         cout << "\n";
     }
+
 
     return 0;
 }

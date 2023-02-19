@@ -1,1 +1,0 @@
-target_sources(main PRIVATE Node.h DoublyLinkedList.h DoublyLinkedList.cpp)

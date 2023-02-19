@@ -2,8 +2,7 @@
 // Created by Peter Vaiciulis on 2/4/23.
 //
 
-#ifndef DOUBLYLINKEDLIST_H
-#define DOUBLYLINKEDLIST_H
+#pragma once
 
 #include "Node.h"
 
@@ -26,7 +25,7 @@ public:
     T index(int index) const;  // Return value at index
     Node<T> *find(T data) const;  // Return first node with matching data value
     void remove(T data);  // Remove first occurrence of data
-    [[nodiscard]] bool isEmpty() const { return _size == 0; }
+    bool isEmpty() const { return _size == 0; }
 
     // Class Accessors
     int size() { return _size; }
@@ -66,6 +65,3 @@ public:
     rIterator rBegin() const { return rIterator(_tail); }
     rIterator rEnd() const { return rIterator(nullptr); }
 };
-
-
-#endif //DOUBLYLINKEDLIST_H

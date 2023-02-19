@@ -1,9 +1,12 @@
 //
 // Created by Peter Vaiciulis on 2/4/23.
 //
+#pragma once
 
 #include <stdexcept>
-#include "include/DoublyLinkedList.h"
+#include <string>
+#include "DoublyLinkedList.h"
+
 
 
 // Constructors & Destructor
@@ -130,3 +133,7 @@ void DoublyLinkedList<T>::remove(T data) {
 
     _size--;
 }
+
+template class DoublyLinkedList<int>;
+template class DoublyLinkedList<double>;
+template class DoublyLinkedList<std::string>;

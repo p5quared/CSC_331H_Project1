@@ -2,8 +2,7 @@
 // Created by Peter Vaiciulis on 2/4/23.
 //
 
-#ifndef NODE_H
-#define NODE_H
+#pragma once
 
 template <typename T>
 class Node {
@@ -15,4 +14,3 @@ public:
 };
 
 
-#endif //NODE_H
