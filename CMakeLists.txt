@@ -5,7 +5,7 @@ set(CMAKE_CXX_STANDARD 17)
 include_directories(lib)
 
 # main
-add_executable(main main.cpp lib/Node.h lib/DoublyLinkedList.h lib/DoublyLinkedList.cpp)
+add_executable(main main.cpp lib/DoublyLinkedList.cpp)
 
 # testing
 add_executable(tests tests/test.cpp lib/DoublyLinkedList.cpp)
