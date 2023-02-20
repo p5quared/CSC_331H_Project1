@@ -27,7 +27,7 @@ TEST_CASE( "Node<string>", "[Node]" ) {
 TEST_CASE( "DoublyLinkedList<int>", "[DoublyLinkedList]") {
     // All tests are run starting with a list of 4 ints; enough to cover all cases.
     // {0...3}
-    DoublyLinkedList<int> list;
+    psv::DoublyLinkedList<int> list;
     REQUIRE( list.isEmpty() );
     for (int i = 0; i < 4; ++i) {
         list.append(i);
@@ -97,7 +97,7 @@ TEST_CASE( "DoublyLinkedList<int>", "[DoublyLinkedList]") {
         REQUIRE( list.index(1) == 0 );
 
         // Prepend should work on an empty list
-        DoublyLinkedList<int> emptyList;
+        psv::DoublyLinkedList<int> emptyList;
         emptyList.prepend(99);
         REQUIRE( emptyList.size() == 1 );
         REQUIRE( emptyList.index(0) == 99 );
@@ -105,7 +105,7 @@ TEST_CASE( "DoublyLinkedList<int>", "[DoublyLinkedList]") {
 
     SECTION("Copy Constructor") {
         // Copy constructor should create a new list with the same items
-        DoublyLinkedList<int> copy(list);
+        psv::DoublyLinkedList<int> copy(list);
         REQUIRE( copy.size() == 4 );
         REQUIRE( copy.index(0) == 0 );
         REQUIRE( copy.index(1) == 1 );
@@ -115,7 +115,7 @@ TEST_CASE( "DoublyLinkedList<int>", "[DoublyLinkedList]") {
 
     SECTION("Assignment Operator") {
         // Assignment operator should create a new list with the same items
-        DoublyLinkedList<int> copy = list;
+        psv::DoublyLinkedList<int> copy = list;
         REQUIRE( copy.size() == 4 );
         REQUIRE( copy.index(0) == 0 );
         REQUIRE( copy.index(1) == 1 );
@@ -124,8 +124,8 @@ TEST_CASE( "DoublyLinkedList<int>", "[DoublyLinkedList]") {
 
 
         // Assignment operator should work on an empty list
-        DoublyLinkedList<int> emptyList;
-        DoublyLinkedList<int> copy2 = emptyList;
+        psv::DoublyLinkedList<int> emptyList;
+        psv::DoublyLinkedList<int> copy2 = emptyList;
         REQUIRE( copy2.size() == 0 );
     }
 
@@ -145,7 +145,7 @@ TEST_CASE("DoublyLinkedList<std::string>","[DoublyLinkedList]") {
     using std::string;
     using std::to_string;
 
-    DoublyLinkedList<string> list;
+    psv::DoublyLinkedList<string> list;
     for(int i = 10; i < 100; i+=10) {
         list.append(to_string(i));
     }
