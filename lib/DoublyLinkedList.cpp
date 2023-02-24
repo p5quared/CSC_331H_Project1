@@ -125,10 +125,10 @@ namespace psv
             return;
 
         dataNode->_prev == nullptr ?
-            _head = dataNode->_next : dataNode->_prev->_next = dataNode->_next;
+            _head = _head->_next : dataNode->_prev->_next = dataNode->_next;
 
         dataNode->_next == nullptr ?
-            _tail = dataNode->_prev : dataNode->_next->_prev = dataNode->_prev;
+            _tail = _tail->_prev : dataNode->_next->_prev = dataNode->_prev;
 
         delete dataNode;
 

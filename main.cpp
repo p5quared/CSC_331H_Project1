@@ -4,7 +4,6 @@
 
 #include <array>
 
-#include <iostream>
 
 
 
@@ -16,63 +15,124 @@ int main() {
     psv::DoublyLinkedList<float> list_floats;
     psv::DoublyLinkedList<std::string> list_strings;
 
-    // type setting
+    // type select
     std::vector<std::string> types = {"int", "float", "string"};
     int selected_type = 0;
     Component select_type = Radiobox(&types, &selected_type);
 
-    // action setting
-    std::vector<std::string> actions = {"append", "prepend"};
+    // action select
+    std::vector<std::string> actions = {"append", "prepend", "delete"};
     int selected_action = 0;
     Component select_action = Radiobox(&actions, &selected_action);
 
-    // random setting
-    std::string random_label = "Random";
-    bool random_state = false;
+
+    // additional settings
+    std::vector<std::string> setting_labels = {"Random", "Input"};
+    int user_input = 0;
     Component options = Container::Vertical({
-            Checkbox(&random_label, &random_state),
+            Radiobox(&setting_labels, &user_input),
     });
 
     // value input
     std::string input_value;
     auto input_option = InputOption();
-    input_option.on_enter = [&]() {
-        // TODO: Think of a more elegant approach...
-        // given we aren't even handling prepend or delete yet... yikes
-        switch (selected_type) {
-            case 0:
-                if (random_state)
-                    list_ints.append(rand() % 100);
-                else
-                    list_ints.append(std::stoi(input_value));
-                break;
-            case 1:
-                if (random_state)
-                    list_floats.append(rand() % 100);
-                else
-                    list_floats.append(std::stof(input_value));
-                break;
-            case 2:
-                if (random_state)
-                    // TODO: random words
-                    list_strings.append("random");
-                else
-                    list_strings.append(input_value);
-                break;
-            default:
-                // TODO: Handle? or not
-                throw(std::runtime_error("Invalid type selected"));
-                break;
-        }
-    };
     Component input = Input(&input_value, "Enter value", &input_option);
 
-    auto list_utils = Container::Vertical({
+    auto append = Button("Append", [&]{
+        switch (selected_type) {
+            case 0:
+                if (user_input)
+                    list_ints.append(std::stoi(input_value));
+                else
+                    list_ints.append(rand() % 100);
+                break;
+            case 1:
+                if (user_input)
+                    list_floats.append(std::stof(input_value));
+                else
+                    list_floats.append(rand() % 100);
+                break;
+            case 2:
+                if (user_input)
+                    list_strings.append(input_value);
+                else
+                    list_strings.append("random");
+                break;
+        }
+    });
+    auto prepend = Button("Prepend", [&]{
+        switch (selected_type) {
+            case 0:
+                if (user_input)
+                    list_ints.prepend(std::stoi(input_value));
+                else
+                    list_ints.prepend(rand() % 100);
+                break;
+            case 1:
+                if (user_input)
+                    list_floats.prepend(std::stof(input_value));
+                else
+                    list_floats.prepend(rand() % 100);
+                break;
+            case 2:
+                if (user_input)
+                    list_strings.prepend(input_value);
+                else
+                    list_strings.prepend("random");
+                break;
+        }
+    });
+    auto remove = Button("Remove", [&]{
+        switch (selected_type) {
+            case 0:
+                if (user_input)
+                    list_ints.remove(std::stoi(input_value));
+                else
+                    list_ints.remove(rand() % 100);
+                break;
+            case 1:
+                if (user_input)
+                    list_floats.remove(std::stof(input_value));
+                else
+                    list_floats.remove(rand() % 100);
+                break;
+            case 2:
+                if (user_input)
+                    list_strings.remove(input_value);
+                else
+                    list_strings.remove("random");
+                break;
+        }
+    });
+    auto clear = Button("Clear", [&]{
+        switch (selected_type) {
+            case 0:
+                list_ints = psv::DoublyLinkedList<int>();
+                break;
+            case 1:
+                list_floats = psv::DoublyLinkedList<float>();
+                break;
+            case 2:
+                list_strings = psv::DoublyLinkedList<std::string>();
+                break;
+        }
+    });
+
+    Component buttons = Container::Horizontal({
+                                               append,
+                                               prepend,
+                                               remove,
+                                                  clear
+                                       });
+    auto list_utils = Container::Horizontal({
             select_type,
             select_action,
             options,
             input,
+            buttons
     });
+
+
 
     auto render_list = [&] {
         Elements line;
@@ -107,19 +167,60 @@ int main() {
 
 
     auto main_renderer = Renderer(list_utils, [&] {
-        auto tool_window = window(text("Tools"), list_utils->Render());
+        auto type_window = window(text("List Type"), select_type->Render());
+        auto action_window = window(text("Action"), select_action->Render());
+        auto options_window = window(text("Data Source"), options->Render());
+        auto input_window = window(text("Input"),hbox({
+            text("Value: "),
+            input->Render()
+        }));
+        auto button_window = window(text("Actions"), buttons->Render());
 
-        return hbox({
-            tool_window,
-            vbox(
-                    hflow(render_list()) | center | flex
-                    ) | flex,
-        }) | border ;
+
+        Element tools;
+        if(user_input){
+            tools = hbox({
+                         type_window,
+                         action_window,
+                         options_window,
+                         input_window,
+                         button_window,
+                 }) | center;
+        }else{
+            tools = hbox({
+                     type_window,
+                     action_window,
+                     options_window,
+                     button_window,
+             }) | center;
+        }
+
+        FlexboxConfig configuration;
+        configuration.align_content = FlexboxConfig::AlignContent::SpaceAround;
+        configuration.justify_content = FlexboxConfig::JustifyContent::SpaceAround;
+        configuration.direction = FlexboxConfig::Direction::Column;
+        auto content = flexbox(
+                {
+                    hflow(render_list()),
+                    vbox({
+                         tools,
+                         hflow(text("by Peter V."))
+                    }),
+                }, configuration) | borderDouble;
+
+        return content;
+
+       // Pre-Flexbox layout
+//        return vbox({
+//            hflow(render_list()) | center | flex_grow
+//            ,
+//            tools,
+//
+//        }) | flex_shrink | borderHeavy;
     });
 
 
     screen.Loop(main_renderer);
-    // need delete button
 
     return 0;
 };

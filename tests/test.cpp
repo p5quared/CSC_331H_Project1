@@ -104,7 +104,7 @@ TEST_CASE( "DoublyLinkedList<int>", "[DoublyLinkedList]") {
     }
 
     SECTION("Copy Constructor") {
-        // Copy constructor should create a new list with the same items
+        // copy constructor should create a new list with the same items
         psv::DoublyLinkedList<int> copy(list);
         REQUIRE( copy.size() == 4 );
         REQUIRE( copy.index(0) == 0 );
