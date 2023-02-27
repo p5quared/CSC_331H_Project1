@@ -35,7 +35,6 @@ cmake ..
 make
 ```
 There are two outputs: "main" and "tests".
-"main" is the executable for the program, and "tests" is the executable for the tests.
 
 I enjoyed working on this project and feel that I learned *a lot* about C++ that I did not know before this.
 Here are a couple issues that really plagued me in developing this project:
