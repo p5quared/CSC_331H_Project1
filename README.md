@@ -23,6 +23,10 @@ As of  2/23/2023, the GUI is completed.
 * [Catch2](https://github.com/catchorg/Catch2) - Testing
 * [FTXUI](https://github.com/ArthurSonzogni/FTXU) - GUI
 
+### Branch
+Please clone the "ftxui" branch of this repository for review. The "master" branch is the only the original
+project requirements, and there is a chance some of the build config might have gotten messed up along the way. (`
+git clone https://github.com/p5quared/CSC_331H_Project1 -b ftxui`)
 
 ### Build
 This project is built using CMake. Two targets are produced: "main" and "tests" (self explanatory). 
